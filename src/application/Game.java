@@ -39,6 +39,7 @@ public class Game {
 	private int scoreResult = 0;
 	private DB db = new DB();
 	private String playerName;
+	private boolean paused;
 
 	private static final int WIDTH = 20;
 	private static final int HEIGHT = 20;
@@ -306,12 +307,16 @@ public class Game {
 	public void gamePause() {
 		snakeStage.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
 			if (key.getCode() == KeyCode.P) {
-				timer.stop();
-				graphicsContext.setFill(Color.DARKGREEN);
-				graphicsContext.setFont(new Font("", 50));
-				graphicsContext.fillText("PAUSE", 180, 250);
-			} else {
-				timer.start();
+				if (paused) {
+					paused = false;
+					timer.start();
+				} else {
+					paused = true;
+					graphicsContext.setFill(Color.DARKGREEN);
+					graphicsContext.setFont(new Font("", 50));
+					graphicsContext.fillText("PAUSE", 180, 250);
+					timer.stop();
+				}
 			}
 		});
 	}
