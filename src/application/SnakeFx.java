@@ -8,7 +8,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class SnakeFx extends Application {
-
+	/**
+	 * Tento komment sluzi ako skuska na push a commit na github 28.9.2020
+	 */
 	static Stage mainStage;
 
 	@Override
