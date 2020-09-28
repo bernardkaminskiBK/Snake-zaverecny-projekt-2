@@ -64,7 +64,7 @@ public class SnakeFxController implements Initializable {
 	private static final int OVAL_SNAKE = 1;
 	private static final int RECTANGLE_SNAKE = 2;
 
-	private static final int POCET_CHAR_MENO_HRACA = 3;
+	private static final int MAX_LETTERS_FOR_PLAYER_NAME = 3;
 
 	private Game game;
 	private DB db = new DB();
@@ -98,7 +98,7 @@ public class SnakeFxController implements Initializable {
 	}
 
 	private void runGame() {
-		if (!setPlayerName.isEmpty() && setPlayerName.length() >= POCET_CHAR_MENO_HRACA) {
+		if (!setPlayerName.isEmpty() && setPlayerName.length() >= MAX_LETTERS_FOR_PLAYER_NAME) {
 			SnakeFx.mainStage.hide();
 			game = new Game(setPlayerName.toUpperCase().substring(0, 3));
 			game.run();
@@ -193,7 +193,7 @@ public class SnakeFxController implements Initializable {
 
 	public void setTextArea() {
 		players = db.getAllPlayers();
-		players.sort(Player.PODLA_SKORE);
+		players.sort(Player.SCORE);
 
 		String result = "";
 		int lineCounter = 0;

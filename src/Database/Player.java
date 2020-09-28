@@ -7,7 +7,7 @@ public class Player {
 	private String meno;
 	private int score;
 
-	public static Comparator<Player> PODLA_SKORE = new Comparator<Player>() {
+	public static Comparator<Player> SCORE = new Comparator<Player>() {
 		@Override
 		public int compare(Player player1, Player player2) {
 			return Integer.compare(player2.getScore(), player1.getScore());

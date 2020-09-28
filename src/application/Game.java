@@ -171,25 +171,25 @@ public class Game {
 		switch (direction) {
 		case up:
 			snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).y--;
-			if (snake.get(0).y < 0) {
+			if (snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).y < 0) {
 				gameOver = true;
 			}
 			break;
 		case down:
 			snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).y++;
-			if (snake.get(0).y > HEIGHT) {
+			if (snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).y > HEIGHT) {
 				gameOver = true;
 			}
 			break;
 		case left:
 			snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).x--;
-			if (snake.get(0).x < 0) {
+			if (snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).x < 0) {
 				gameOver = true;
 			}
 			break;
 		case right:
 			snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).x++;
-			if (snake.get(0).x > WIDTH) {
+			if (snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).x > WIDTH) {
 				gameOver = true;
 			}
 			break;
