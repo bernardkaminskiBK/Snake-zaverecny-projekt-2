@@ -153,6 +153,11 @@ public class Game {
 			return;
 		}
 
+		for (int i = snake.size() - 1; i >= 1; i--) {
+			snake.get(i).x = snake.get(i - 1).x;
+			snake.get(i).y = snake.get(i - 1).y;
+		}
+
 		isGameOver(direction);
 		eatFood();
 		selfDestroy();
@@ -163,10 +168,6 @@ public class Game {
 	}
 
 	public void isGameOver(Dir direction) {
-		for (int i = snake.size() - 1; i >= 1; i--) {
-			snake.get(i).x = snake.get(i - 1).x;
-			snake.get(i).y = snake.get(i - 1).y;
-		}
 
 		switch (direction) {
 		case up:
