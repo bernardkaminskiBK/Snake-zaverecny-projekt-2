@@ -98,7 +98,7 @@ public class SnakeFxController implements Initializable {
 	}
 
 	private void runGame() {
-		if (!setPlayerName.isEmpty() && setPlayerName.length() <= POCET_CHAR_MENO_HRACA) {
+		if (!setPlayerName.isEmpty() && setPlayerName.length() >= POCET_CHAR_MENO_HRACA) {
 			SnakeFx.mainStage.hide();
 			game = new Game(setPlayerName.toUpperCase().substring(0, 3));
 			game.run();
