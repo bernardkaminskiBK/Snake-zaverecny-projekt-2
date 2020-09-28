@@ -24,11 +24,10 @@ public class Game {
 
 	private int speed = 5;
 	private int foodcolor = 0;
-	private int width = 20;
-	private int height = 20;
+
 	private int foodX = 0;
 	private int foodY = 0;
-	private int cornersize = 25;
+
 	private List<Corner> snake = new ArrayList<>();
 	private Dir direction = Dir.left;
 	private boolean gameOver = false;
@@ -40,6 +39,11 @@ public class Game {
 	private int scoreResult = 0;
 	private DB db = new DB();
 	private String playerName;
+
+	private static final int WIDTH = 20;
+	private static final int HEIGHT = 20;
+	private static final int CORNERSIZE = 25;
+	private static final int FIRST_CORNER_IN_ARRAY_SNAKE = 0;
 
 	public Game() {
 		reset();
@@ -53,14 +57,14 @@ public class Game {
 		newFood();
 
 		VBox root = new VBox();
-		Canvas canvas = new Canvas(width * cornersize, height * cornersize);
+		Canvas canvas = new Canvas(WIDTH * CORNERSIZE, HEIGHT * CORNERSIZE);
 
 		graphicsContext = canvas.getGraphicsContext2D();
 		root.getChildren().add(canvas);
 
 		timer();
 
-		Scene scene = new Scene(root, width * cornersize, height * cornersize);
+		Scene scene = new Scene(root, WIDTH * CORNERSIZE, HEIGHT * CORNERSIZE);
 		setMoveControl(scene);
 		initialShapeOfSnake();
 
@@ -82,8 +86,8 @@ public class Game {
 
 	private void newFood() {
 		start: while (true) {
-			foodX = rand.nextInt(width);
-			foodY = rand.nextInt(height);
+			foodX = rand.nextInt(WIDTH);
+			foodY = rand.nextInt(HEIGHT);
 
 			for (Corner c : snake) {
 				if (c.x == foodX && c.y == foodY) {
@@ -117,9 +121,9 @@ public class Game {
 	}
 
 	private void initialShapeOfSnake() {
-		snake.add(new Corner(width / 2, height / 2));
-		snake.add(new Corner(width / 2, height / 2));
-		snake.add(new Corner(width / 2, height / 2));
+		snake.add(new Corner(WIDTH / 2, HEIGHT / 2));
+		snake.add(new Corner(WIDTH / 2, HEIGHT / 2));
+		snake.add(new Corner(WIDTH / 2, HEIGHT / 2));
 	}
 
 	private void setMoveControl(Scene scene) {
@@ -149,37 +153,7 @@ public class Game {
 			return;
 		}
 
-		for (int i = snake.size() - 1; i >= 1; i--) {
-			snake.get(i).x = snake.get(i - 1).x;
-			snake.get(i).y = snake.get(i - 1).y;
-		}
-
-		switch (direction) {
-		case up:
-			snake.get(0).y--;
-			if (snake.get(0).y < 0) {
-				gameOver = true;
-			}
-			break;
-		case down:
-			snake.get(0).y++;
-			if (snake.get(0).y > height) {
-				gameOver = true;
-			}
-			break;
-		case left:
-			snake.get(0).x--;
-			if (snake.get(0).x < 0) {
-				gameOver = true;
-			}
-			break;
-		case right:
-			snake.get(0).x++;
-			if (snake.get(0).x > width) {
-				gameOver = true;
-			}
-			break;
-		}
+		isGameOver(direction);
 		eatFood();
 		selfDestroy();
 		setBackground();
@@ -188,8 +162,42 @@ public class Game {
 		setSnakeColorAndSize();
 	}
 
+	public void isGameOver(Dir direction) {
+		for (int i = snake.size() - 1; i >= 1; i--) {
+			snake.get(i).x = snake.get(i - 1).x;
+			snake.get(i).y = snake.get(i - 1).y;
+		}
+
+		switch (direction) {
+		case up:
+			snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).y--;
+			if (snake.get(0).y < 0) {
+				gameOver = true;
+			}
+			break;
+		case down:
+			snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).y++;
+			if (snake.get(0).y > HEIGHT) {
+				gameOver = true;
+			}
+			break;
+		case left:
+			snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).x--;
+			if (snake.get(0).x < 0) {
+				gameOver = true;
+			}
+			break;
+		case right:
+			snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).x++;
+			if (snake.get(0).x > WIDTH) {
+				gameOver = true;
+			}
+			break;
+		}
+	}
+
 	private void eatFood() {
-		if (foodX == snake.get(0).x && foodY == snake.get(0).y) {
+		if (foodX == snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).x && foodY == snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).y) {
 			snake.add(new Corner(-1, -1));
 			scoreResult++;
 			newFood();
@@ -198,7 +206,8 @@ public class Game {
 
 	private void selfDestroy() {
 		for (int i = 1; i < snake.size(); i++) {
-			if (snake.get(0).x == snake.get(i).x && snake.get(0).y == snake.get(i).y) {
+			if (snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).x == snake.get(i).x
+					&& snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).y == snake.get(i).y) {
 				gameOver = true;
 			}
 		}
@@ -208,11 +217,11 @@ public class Game {
 		switch (SnakeFxController.BACKGROUND_COLOR) {
 		case 1:
 			graphicsContext.setFill(Color.BLACK);
-			graphicsContext.fillRect(0, 0, width * cornersize, height * cornersize);
+			graphicsContext.fillRect(0, 0, WIDTH * CORNERSIZE, HEIGHT * CORNERSIZE);
 			break;
 		case 2:
 			graphicsContext.setFill(Color.WHITE);
-			graphicsContext.fillRect(0, 0, width * cornersize, height * cornersize);
+			graphicsContext.fillRect(0, 0, WIDTH * CORNERSIZE, HEIGHT * CORNERSIZE);
 			break;
 		}
 	}
@@ -256,7 +265,7 @@ public class Game {
 			break;
 		}
 		graphicsContext.setFill(cc);
-		graphicsContext.fillOval(foodX * cornersize, foodY * cornersize, cornersize, cornersize);
+		graphicsContext.fillOval(foodX * CORNERSIZE, foodY * CORNERSIZE, CORNERSIZE, CORNERSIZE);
 	}
 
 	private void setSnakeColorAndSize() {
@@ -264,15 +273,15 @@ public class Game {
 			switch (SnakeFxController.SHAPE_SNAKE) {
 			case 1:
 				graphicsContext.setFill(Color.LINEN);
-				graphicsContext.fillOval(c.x * cornersize, c.y * cornersize, cornersize - 1, cornersize - 1);
+				graphicsContext.fillOval(c.x * CORNERSIZE, c.y * CORNERSIZE, CORNERSIZE - 1, CORNERSIZE - 1);
 				graphicsContext.setFill(setSnakeColor());
-				graphicsContext.fillOval(c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
+				graphicsContext.fillOval(c.x * CORNERSIZE, c.y * CORNERSIZE, CORNERSIZE - 2, CORNERSIZE - 2);
 				break;
 			case 2:
 				graphicsContext.setFill(Color.LINEN);
-				graphicsContext.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 1, cornersize - 1);
+				graphicsContext.fillRect(c.x * CORNERSIZE, c.y * CORNERSIZE, CORNERSIZE - 1, CORNERSIZE - 1);
 				graphicsContext.setFill(setSnakeColor());
-				graphicsContext.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
+				graphicsContext.fillRect(c.x * CORNERSIZE, c.y * CORNERSIZE, CORNERSIZE - 2, CORNERSIZE - 2);
 				break;
 			}
 		}
