@@ -6,8 +6,8 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-import Database.DB;
-import Database.Player;
+import database.DB;
+import database.Player;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;

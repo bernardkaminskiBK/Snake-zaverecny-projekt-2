@@ -23,7 +23,7 @@
          <children>
             <ImageView fitHeight="342.0" fitWidth="246.0" layoutX="175.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Obrazky/depositphotos_85958264-stock-illustration-snake-border.jpg" />
+                  <Image url="@../obrazky/depositphotos_85958264-stock-illustration-snake-border.jpg" />
                </image>
             </ImageView>
             <HBox layoutX="198.0" layoutY="288.0" prefHeight="26.0" prefWidth="200.0" spacing="55.0">
@@ -91,12 +91,12 @@
                <children>
                   <ImageView fitHeight="104.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Obrazky/Background_BLACK.png" />
+                        <Image url="@../obrazky/Background_BLACK.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="104.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Obrazky/Background_WHITE.png" />
+                        <Image url="@../obrazky/Background_WHITE.png" />
                      </image>
                   </ImageView>
                </children>

@@ -19,7 +19,7 @@ public class SnakeFx extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("SnakeFxView.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setTitle("Snake");
-			primaryStage.getIcons().add(new Image("Obrazky/snake-icon.png"));
+			primaryStage.getIcons().add(new Image("obrazky/snake-icon.png"));
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.show();
