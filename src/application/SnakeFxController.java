@@ -28,39 +28,12 @@ public class SnakeFxController implements Initializable {
 	@FXML
 	private TextField playerName;
 	@FXML
-	private Pane basePane;
+	private Pane basePane, panePlayerName, optionPane, paneControls;
 	@FXML
-	private Pane panePlayerName;
+	private Button btnOkControls, btnControls, btnOk, btnOption, btnOptionOk;
 	@FXML
-	private Pane optionPane;
-	@FXML
-	private Pane paneControls;
-	@FXML
-	private Button btnOkControls;
-	@FXML
-	private Button btnControls;
-	@FXML
-	private Button btnOk;
-	@FXML
-	private Button btnOption;
-	@FXML
-	private Button btnOptionOk;
-	@FXML
-	private RadioButton rdBtnBlack;
-	@FXML
-	private RadioButton rdBtnWhite;
-	@FXML
-	private RadioButton rdBtnRectSnake;
-	@FXML
-	private RadioButton rdBtnOvalSnake;
-	@FXML
-	private RadioButton snakeColorGreen;
-	@FXML
-	private RadioButton snakeColorOrange;
-	@FXML
-	private RadioButton snakeColorPurple;
-	@FXML
-	private RadioButton snakeColorRed;
+	private RadioButton rdBtnBlack, rdBtnWhite, rdBtnRectSnake, rdBtnOvalSnake, snakeColorGreen, snakeColorOrange,
+			snakeColorPurple, snakeColorRed;
 
 	private static final int BLACK_BACKGROUND_COLOR = 1;
 	private static final int WHITE_BACKGROUND_COLOR = 2;
