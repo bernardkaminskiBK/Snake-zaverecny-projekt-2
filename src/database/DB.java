@@ -11,16 +11,39 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+// TODO: Auto-generated Javadoc
+/**
+ * 
+ * Databaza uklada informacie a hracoch(meno a skore).
+ *
+ */
 public class DB {
 
+	/** The Constant JDBC_DRIVER. */
 	private static final String JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+
+	/** The Constant URL. */
 	private static final String URL = "jdbc:derby:SnakeFxDB;create=true";
+
+	/** The Constant USERNAME. */
 	private static final String USERNAME = "";
+
+	/** The Constant PASSWORD. */
 	private static final String PASSWORD = "";
+
+	/** The conn. */
 	private Connection conn = null; // Zostrojime spojenie (most)
+
+	/** The create statement. */
 	private Statement createStatement = null;
+
+	/** The dbmd. */
 	private DatabaseMetaData dbmd = null;
 
+	/**
+	 * Konstruktor vytvara spojenie s databazou derby a tabulku so stlpcami hrac a
+	 * skore.
+	 */
 	public DB() {
 		// Skuska spojenia
 		try {
@@ -60,6 +83,11 @@ public class DB {
 		}
 	}
 
+	/**
+	 * Vrati vsetkych hracov z databazy.
+	 * 
+	 * @return vsetky hraci.
+	 */
 	public ArrayList<Player> getAllPlayers() {
 		String sql = "select * from players";
 		ArrayList<Player> players = null;
@@ -79,6 +107,11 @@ public class DB {
 		return players;
 	}
 
+	/**
+	 * Pridava noveho hraca do databazy.
+	 * 
+	 * @param player novy hrac.
+	 */
 	public void addNewPlayer(Player player) {
 		String sql = "insert into players values (?,?)";
 		try {
@@ -92,13 +125,18 @@ public class DB {
 		}
 	}
 
+	/**
+	 * Odstranuje hraca/hracov z databazy podla mena.
+	 * 
+	 * @param player hrac.
+	 */
 	public void removePlayer(Player player) {
 		String sql = "delete from players where name = '" + player.getMeno() + "'";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.execute();
 		} catch (SQLException e) {
-			System.out.println("There is something wrong with delete contacts from database.");
+			System.out.println("There is something wrong with delete players from database.");
 			e.printStackTrace();
 		}
 	}

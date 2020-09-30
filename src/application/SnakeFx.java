@@ -7,12 +7,22 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * 
+ * Trieda spusta hru a nastavuje hlavne okno(Menu).
+ * 
+ */
 public class SnakeFx extends Application {
-	/**
-	 * Tento komment sluzi ako skuska na push a commit na github 28.9.2020
-	 */
+
+	/** The main stage. */
 	static Stage mainStage;
 
+	/**
+	 * Start.
+	 *
+	 * @param primaryStage the primary stage
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -29,6 +39,11 @@ public class SnakeFx extends Application {
 		}
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

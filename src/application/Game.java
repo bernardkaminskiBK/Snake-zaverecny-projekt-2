@@ -20,40 +20,90 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * 
+ * Trieda reprezuntuje hru snake nasledne nastavuje celu hru.
+ *
+ */
 public class Game {
 
+	/** The speed. */
 	private int speed = 5;
+
+	/** The foodcolor. */
 	private int foodcolor = 0;
 
+	/** The food X. */
 	private int foodX = 0;
+
+	/** The food Y. */
 	private int foodY = 0;
 
+	/** The snake. */
 	private List<Corner> snake = new ArrayList<>();
+
+	/** The direction. */
 	private Dir direction = Dir.left;
+
+	/** The game over. */
 	private boolean gameOver = false;
+
+	/** The rand. */
 	private Random rand = new Random();
 
+	/** The snake stage. */
 	private Stage snakeStage;
+
+	/** The timer. */
 	private AnimationTimer timer;
+
+	/** The graphics context. */
 	private GraphicsContext graphicsContext;
+
+	/** The score result. */
 	private int scoreResult = 0;
+
+	/** The db. */
 	private DB db = new DB();
+
+	/** The player name. */
 	private String playerName;
+
+	/** The paused. */
 	private boolean paused;
 
+	/** The Constant WIDTH. */
 	private static final int WIDTH = 20;
+
+	/** The Constant HEIGHT. */
 	private static final int HEIGHT = 20;
+
+	/** The Constant CORNERSIZE. */
 	private static final int CORNERSIZE = 25;
+
+	/** The Constant FIRST_CORNER_IN_ARRAY_SNAKE. */
 	private static final int FIRST_CORNER_IN_ARRAY_SNAKE = 0;
 
+	/**
+	 * Volanim konstruktora sa hra nastavy do tzv. pociatocneho stavu hry.
+	 */
 	public Game() {
 		reset();
 	}
 
+	/**
+	 * Nastavy meno hraca.
+	 * 
+	 * @param playerName meno hraca.
+	 */
 	public Game(String playerName) {
 		this.playerName = playerName;
 	}
 
+	/**
+	 * Nastavy hracske okno. Spusta celu hru.
+	 */
 	public void run() {
 		newFood();
 
@@ -79,12 +129,20 @@ public class Game {
 		gamePause();
 	}
 
+	/**
+	 * Nastavy hru do pociatocneho stavu.
+	 */
 	private void reset() {
 		speed = 5;
 		snake = new ArrayList<>();
 		gameOver = false;
 	}
 
+	/**
+	 * Generuje gulicku(gulicka reprezentuje hadie jedlo/food) ktora sa umiestnuje
+	 * na nahodnych x-vych a y-vych suradniciach. Pri konzumacii tzv. foodo sa
+	 * navysuje rychlost priebehu hry a nastavy sa nahodna farba foodo.
+	 */
 	private void newFood() {
 		start: while (true) {
 			foodX = rand.nextInt(WIDTH);
@@ -101,6 +159,11 @@ public class Game {
 		}
 	}
 
+	/**
+	 * V metode sa nachadza trieda AnimationTimer ktory umoznuje vytvorit casovac
+	 * ktory umoznoje spravit pohyblivu animaciu a zrychlovat pohyb hadika na
+	 * platne.
+	 */
 	private void timer() {
 		timer = new AnimationTimer() {
 			long lastTick = 0;
@@ -121,12 +184,21 @@ public class Game {
 		timer.start();
 	}
 
+	/**
+	 * Nastavuje zaciatocny stav hadika. Zaciatocny velkost hadika sa sklada z troch
+	 * casti.
+	 */
 	private void initialShapeOfSnake() {
 		snake.add(new Corner(WIDTH / 2, HEIGHT / 2));
 		snake.add(new Corner(WIDTH / 2, HEIGHT / 2));
 		snake.add(new Corner(WIDTH / 2, HEIGHT / 2));
 	}
 
+	/**
+	 * Nastavuje inputy z klavesnice ktore su zodpovedne za ovladanie hry.
+	 * 
+	 * @param scene scene nastavenie ovladanie hry.
+	 */
 	private void setMoveControl(Scene scene) {
 		scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
 			if (key.getCode() == KeyCode.W) {
@@ -144,6 +216,10 @@ public class Game {
 		});
 	}
 
+	/**
+	 * Metoda tick kontroluje ci je koniec hry v pripade ak je koniec hry prida
+	 * hraca do databazy.
+	 */
 	private void tick() {
 		if (gameOver) {
 			db.addNewPlayer(new Player(playerName, getScoreResult()));
@@ -168,6 +244,14 @@ public class Game {
 		setSnakeColorAndSize();
 	}
 
+	/**
+	 * Metoda kontroluje hadika podla x-ovych a y-ovych surdanic kde sa nachadza
+	 * prave na platne a podla toho vyhodnocuje koniec hry. Ak hadik presiahne svoje
+	 * limity hore, dole, pravo, vlavo na platne podla nastavenej sirky a vysky
+	 * platna program vyhodnocuje hru za Game over.
+	 * 
+	 * @param direction pohyb smeru hadika na platne.
+	 */
 	public void isGameOver(Dir direction) {
 
 		switch (direction) {
@@ -198,6 +282,11 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Metoda kontroluje zhodu hadika x/y z food x/y ak je zhoda program vyhodnocuje
+	 * zhodu(hadik zjedol svoje jedlo) pridava dalsiu cast k hadikovi a navysuje
+	 * skore hracovi o jednicku. Nasledne vola metodu newFood().
+	 */
 	private void eatFood() {
 		if (foodX == snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).x && foodY == snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).y) {
 			snake.add(new Corner(-1, -1));
@@ -206,6 +295,10 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Metoda kontroluje pripad ak hadik sa narazil do seba v tom pripade nastavuje
+	 * premennu game over na true, hra sa konci.
+	 */
 	private void selfDestroy() {
 		for (int i = 1; i < snake.size(); i++) {
 			if (snake.get(FIRST_CORNER_IN_ARRAY_SNAKE).x == snake.get(i).x
@@ -215,6 +308,9 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Nastavuje pozadie hracskej plochy podla vyberu pouzivatela Cierna/Biela.
+	 */
 	private void setBackground() {
 		switch (SnakeFxController.BACKGROUND_COLOR) {
 		case 1:
@@ -228,6 +324,10 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Nastavuje styl a farbu pisma Score a celkovy pocet pozbieranych bodov pocas
+	 * trvania hry na obrazovku.
+	 */
 	private void setScoreStyle() {
 		switch (SnakeFxController.BACKGROUND_COLOR) {
 		case 1:
@@ -244,6 +344,10 @@ public class Game {
 
 	}
 
+	/**
+	 * Metoda nastavuje velkost jedla(food) a nahodnym vyberom z moznosti farieb
+	 * nastavy farbu jedla(food).
+	 */
 	private void setRandomFoodColor() {
 		Color cc = Color.RED;
 		switch (foodcolor) {
@@ -270,6 +374,9 @@ public class Game {
 		graphicsContext.fillOval(foodX * CORNERSIZE, foodY * CORNERSIZE, CORNERSIZE, CORNERSIZE);
 	}
 
+	/**
+	 * Metoda nastavuje farbu a velkost hadika.
+	 */
 	private void setSnakeColorAndSize() {
 		for (Corner c : snake) {
 			switch (SnakeFxController.SHAPE_SNAKE) {
@@ -289,6 +396,12 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Vrati zvolenu farbu podla pouzivatela. Nasledne podla vyberu nastavy farbu
+	 * hadika.
+	 * 
+	 * @return zvolena farba.
+	 */
 	private Color setSnakeColor() {
 		Color cc = null;
 		switch (SnakeFxController.COLOR_SNAKE) {
@@ -300,12 +413,19 @@ public class Game {
 			break;
 		case 3:
 			cc = Color.PURPLE;
+			break;
 		case 4:
 			cc = Color.RED;
+			break;
 		}
 		return cc;
 	}
 
+	/**
+	 * Metoda stlacenim tlacitka P zastavy animation timer(Pausne). Ak pouzivatel
+	 * znova stlaci tlacitko P na klavesnicy znovu sa spusti casovac a hra sa
+	 * pokracuje dalej.
+	 */
 	public void gamePause() {
 		snakeStage.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
 			if (key.getCode() == KeyCode.P) {
@@ -323,6 +443,11 @@ public class Game {
 		});
 	}
 
+	/**
+	 * Vrati celkovy pocet pozbieranych bodov hraca.
+	 * 
+	 * @return cekovy pocet bodov.
+	 */
 	public int getScoreResult() {
 		return scoreResult;
 	}
