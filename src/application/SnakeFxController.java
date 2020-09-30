@@ -34,6 +34,12 @@ public class SnakeFxController implements Initializable {
 	@FXML
 	private Pane optionPane;
 	@FXML
+	private Pane paneControls;
+	@FXML
+	private Button btnOkControls;
+	@FXML
+	private Button btnControls;
+	@FXML
 	private Button btnOk;
 	@FXML
 	private Button btnOption;
@@ -53,6 +59,8 @@ public class SnakeFxController implements Initializable {
 	private RadioButton snakeColorOrange;
 	@FXML
 	private RadioButton snakeColorPurple;
+	@FXML
+	private RadioButton snakeColorRed;
 
 	private static final int BLACK_BACKGROUND_COLOR = 1;
 	private static final int WHITE_BACKGROUND_COLOR = 2;
@@ -60,6 +68,7 @@ public class SnakeFxController implements Initializable {
 	private static final int SNAKE_COLOR_GREEN = 1;
 	private static final int SNAKE_COLOR_ORANGE = 2;
 	private static final int SNAKE_COLOR_PURPLE = 3;
+	private static final int SNAKE_COLOR_RED = 4;
 
 	private static final int OVAL_SNAKE = 1;
 	private static final int RECTANGLE_SNAKE = 2;
@@ -110,8 +119,17 @@ public class SnakeFxController implements Initializable {
 	}
 
 	@FXML
-	public void btnQuit(ActionEvent event) {
-		System.exit(0);
+	public void btnControls(ActionEvent event) {
+		basePane.setVisible(false);
+		paneControls.setVisible(true);
+
+		btnOkControls.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				paneControls.setVisible(false);
+				basePane.setVisible(true);
+			}
+		});
 	}
 
 	@FXML
@@ -168,6 +186,13 @@ public class SnakeFxController implements Initializable {
 			}
 		});
 
+		snakeColorRed.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				COLOR_SNAKE = SNAKE_COLOR_RED;
+			}
+		});
+
 		btnOptionOk.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -176,6 +201,11 @@ public class SnakeFxController implements Initializable {
 			}
 		});
 
+	}
+
+	@FXML
+	public void btnQuit(ActionEvent event) {
+		System.exit(0);
 	}
 
 	@FXML

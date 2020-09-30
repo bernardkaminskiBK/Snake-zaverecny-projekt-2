@@ -300,6 +300,8 @@ public class Game {
 			break;
 		case 3:
 			cc = Color.PURPLE;
+		case 4:
+			cc = Color.RED;
 		}
 		return cc;
 	}

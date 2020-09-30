@@ -19,6 +19,46 @@
 <AnchorPane id="mainAnchorPane" fx:id="mainAnchorPane" prefHeight="430.0" prefWidth="419.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SnakeFxController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="430.0" stroke="WHITE" strokeType="INSIDE" width="438.0" />
+      <Pane id="paneControls" fx:id="paneControls" prefHeight="430.0" prefWidth="438.0" visible="false">
+         <children>
+            <ImageView fitHeight="228.0" fitWidth="408.0" layoutX="15.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../obrazky/keyboard_layout_snake.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="15.0" layoutY="32.0" text="Game controls:">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="96.0" layoutY="229.0" prefHeight="38.0" prefWidth="74.0" text="Up = W">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <Button id="btnOkControls" fx:id="btnOkControls" layoutX="203.0" layoutY="391.0" mnemonicParsing="false" text="OK" />
+            <Label layoutX="96.0" layoutY="257.0" prefHeight="38.0" prefWidth="83.0" text="Down = S">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="96.0" layoutY="287.0" prefHeight="38.0" prefWidth="74.0" text="Left = A">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="96.0" layoutY="319.0" prefHeight="38.0" prefWidth="83.0" text="Right = D">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="259.0" layoutY="229.0" prefHeight="38.0" prefWidth="83.0" text="Pause = P">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
       <Pane id="basePane" fx:id="basePane" prefHeight="430.0" prefWidth="435.0">
          <children>
             <ImageView fitHeight="342.0" fitWidth="246.0" layoutX="175.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
@@ -38,6 +78,7 @@
             <VBox alignment="TOP_CENTER" layoutX="45.0" layoutY="133.0" prefHeight="98.0" prefWidth="99.0" spacing="25.0">
                <children>
                   <Button id="btnNewGame" fx:id="btnNewGame" mnemonicParsing="false" onAction="#btnNewGame" text="New game" />
+                  <Button id="btnControls" fx:id="btnControls" mnemonicParsing="false" onAction="#btnControls" text="Controls" />
                   <Button id="btnOption" fx:id="btnOption" mnemonicParsing="false" onAction="#btnOption" text="Option" />
                   <Button id="btnQuit" fx:id="btnQuit" mnemonicParsing="false" onAction="#btnQuit" text="Quit" />
                </children>
@@ -80,14 +121,14 @@
             </Label>
          </children>
       </Pane>
-      <Pane id="optionPane" fx:id="optionPane" prefHeight="430.0" prefWidth="438.0" visible="false">
+      <Pane id="optionPane" fx:id="optionPane" layoutX="-2.0" prefHeight="430.0" prefWidth="438.0" visible="false">
          <children>
             <Label layoutX="23.0" layoutY="14.0" text="Choose your background:">
                <font>
                   <Font size="26.0" />
                </font>
             </Label>
-            <HBox layoutX="28.0" layoutY="77.0" prefHeight="104.0" prefWidth="263.0" spacing="65.0">
+            <HBox layoutX="97.0" layoutY="79.0" prefHeight="104.0" prefWidth="263.0" spacing="65.0">
                <children>
                   <ImageView fitHeight="104.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -101,36 +142,37 @@
                   </ImageView>
                </children>
             </HBox>
-            <RadioButton id="rdBtnBlack" fx:id="rdBtnBlack" layoutX="28.0" layoutY="52.0" mnemonicParsing="false" text="Black">
+            <RadioButton id="rdBtnBlack" fx:id="rdBtnBlack" layoutX="95.0" layoutY="52.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="83.0" text="Black">
                <toggleGroup>
                   <ToggleGroup fx:id="backgroundOption" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton id="rdBtnWhite" fx:id="rdBtnWhite" layoutX="199.0" layoutY="52.0" mnemonicParsing="false" text="White" toggleGroup="$backgroundOption" />
+            <RadioButton id="rdBtnWhite" fx:id="rdBtnWhite" layoutX="268.0" layoutY="52.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="74.0" text="White" toggleGroup="$backgroundOption" />
             <Button id="btnOptionOk" fx:id="btnOptionOk" layoutX="203.0" layoutY="391.0" mnemonicParsing="false" text="OK" />
-            <RadioButton id="rdBtnRectSnake" fx:id="rdBtnRectSnake" layoutX="28.0" layoutY="239.0" mnemonicParsing="false" text="Rectangle">
+            <RadioButton id="rdBtnRectSnake" fx:id="rdBtnRectSnake" layoutX="99.0" layoutY="240.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="113.0" text="Rectangle">
                <toggleGroup>
                   <ToggleGroup fx:id="shapeOfSnake" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton id="rdBtnOvalSnake" fx:id="rdBtnOvalSnake" layoutX="196.0" layoutY="239.0" mnemonicParsing="false" text="Oval" toggleGroup="$shapeOfSnake" />
-            <Label layoutX="23.0" layoutY="194.0" text="Choose your snake:">
+            <RadioButton id="rdBtnOvalSnake" fx:id="rdBtnOvalSnake" layoutX="268.0" layoutY="240.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="74.0" text="Oval" toggleGroup="$shapeOfSnake" />
+            <Label layoutX="17.0" layoutY="190.0" text="Choose your snake:">
                <font>
                   <Font size="26.0" />
                </font>
             </Label>
-            <Label layoutX="23.0" layoutY="276.0" text="Choose your snake color:">
+            <Label layoutX="17.0" layoutY="272.0" text="Choose your snake color:">
                <font>
                   <Font size="26.0" />
                </font>
             </Label>
-            <RadioButton id="snakeColorGreen" fx:id="snakeColorGreen" layoutX="28.0" layoutY="327.0" mnemonicParsing="false" text="Green">
+            <RadioButton id="snakeColorGreen" fx:id="snakeColorGreen" layoutX="100.0" layoutY="326.0" mnemonicParsing="false" text="Green">
                <toggleGroup>
                   <ToggleGroup fx:id="snakeColor" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton id="snakeColorOrange" fx:id="snakeColorOrange" layoutX="109.0" layoutY="327.0" mnemonicParsing="false" text="Orange" toggleGroup="$snakeColor" />
-            <RadioButton id="snakeColorPurple" fx:id="snakeColorPurple" layoutX="197.0" layoutY="327.0" mnemonicParsing="false" text="Purple" toggleGroup="$snakeColor" />
+            <RadioButton id="snakeColorOrange" fx:id="snakeColorOrange" layoutX="268.0" layoutY="354.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="99.0" text="Orange" toggleGroup="$snakeColor" />
+            <RadioButton id="snakeColorPurple" fx:id="snakeColorPurple" layoutX="268.0" layoutY="326.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="74.0" text="Purple" toggleGroup="$snakeColor" />
+            <RadioButton id="snakeColorRed" fx:id="snakeColorRed" layoutX="100.0" layoutY="354.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="83.0" text="Red" toggleGroup="$snakeColor" />
          </children>
       </Pane>
    </children>
