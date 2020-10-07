@@ -1,23 +1,19 @@
 package application;
 
-// TODO: Auto-generated Javadoc
 /**
- * Trieda reprezentuje jednotlivu cast hadika.
+ * The class represents an individual part of the snake.
  */
 public class Corner {
 
-	/** The x. */
 	int x;
-
-	/** The y. */
 	int y;
 
 	/**
-	 * Vytvara novy corner ktory reprezentuje cast hadika s x-ovou a y-ovou
-	 * suradnicou.
+	 * Creates a new corner that represents the part of the snake with the x and y
+	 * coordinates
 	 * 
-	 * @param x x-ova suradnica
-	 * @param y y-ova suradnica
+	 * @param x coordinate.
+	 * @param y coordinate.
 	 */
 	public Corner(int x, int y) {
 		this.x = x;

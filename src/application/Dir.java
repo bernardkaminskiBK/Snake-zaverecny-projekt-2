@@ -1,19 +1,9 @@
 package application;
 
-// TODO: Auto-generated Javadoc
 /**
- * 
- * Enum Dir reprezentuje smery pohybu.
- *
+ * Enum Dir represents the directions of movement.
  */
 public enum Dir {
 
-	/** The left. */
-	left,
-	/** The right. */
-	right,
-	/** The up. */
-	up,
-	/** The down. */
-	down
+	left, right, up, down
 }

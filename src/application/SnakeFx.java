@@ -7,11 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-// TODO: Auto-generated Javadoc
 /**
- * 
- * Trieda spusta hru a nastavuje hlavne okno(Menu).
- * 
+ * The class starts the game and sets the main window (Menu).
  */
 public class SnakeFx extends Application {
 

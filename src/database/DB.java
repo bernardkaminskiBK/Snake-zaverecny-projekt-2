@@ -11,41 +11,25 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// TODO: Auto-generated Javadoc
 /**
- * 
- * Databaza uklada informacie a hracoch(meno a skore).
- *
+ * The database stores information about the player(s) (name and score).
  */
 public class DB {
 
-	/** The Constant JDBC_DRIVER. */
 	private static final String JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-
-	/** The Constant URL. */
 	private static final String URL = "jdbc:derby:SnakeFxDB;create=true";
-
-	/** The Constant USERNAME. */
 	private static final String USERNAME = "";
-
-	/** The Constant PASSWORD. */
 	private static final String PASSWORD = "";
 
-	/** The conn. */
-	private Connection conn = null; // Zostrojime spojenie (most)
-
-	/** The create statement. */
+	private Connection conn = null;
 	private Statement createStatement = null;
-
-	/** The dbmd. */
 	private DatabaseMetaData dbmd = null;
 
 	/**
-	 * Konstruktor vytvara spojenie s databazou derby a tabulku so stlpcami hrac a
-	 * skore.
+	 * The constructor creates a connection to the derby database and columns table
+	 * with the player and score.
 	 */
 	public DB() {
-		// Skuska spojenia
 		try {
 			conn = DriverManager.getConnection(URL);
 			System.out.println("Connection Successful.");
@@ -55,7 +39,6 @@ public class DB {
 			Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, e);
 		}
 
-		// Ak je spojenie tak vytvorime "dodavku".
 		if (conn != null) {
 			try {
 				createStatement = conn.createStatement();
@@ -64,7 +47,7 @@ public class DB {
 				e.printStackTrace();
 			}
 		}
-		// Testujeme databasu ci je prazdny ? Checkujeme ci existuje data table.
+
 		try {
 			dbmd = conn.getMetaData();
 		} catch (SQLException e) {
@@ -84,9 +67,9 @@ public class DB {
 	}
 
 	/**
-	 * Vrati vsetkych hracov z databazy.
+	 * Returns all players from the database.
 	 * 
-	 * @return vsetky hraci.
+	 * @return all players.
 	 */
 	public ArrayList<Player> getAllPlayers() {
 		String sql = "select * from players";
@@ -108,15 +91,15 @@ public class DB {
 	}
 
 	/**
-	 * Pridava noveho hraca do databazy.
+	 * Adds a new player to the database.
 	 * 
-	 * @param player novy hrac.
+	 * @param new player.
 	 */
 	public void addNewPlayer(Player player) {
 		String sql = "insert into players values (?,?)";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, player.getMeno());
+			preparedStatement.setString(1, player.getName());
 			preparedStatement.setInt(2, player.getScore());
 			preparedStatement.execute();
 		} catch (SQLException e) {
@@ -126,12 +109,12 @@ public class DB {
 	}
 
 	/**
-	 * Odstranuje hraca/hracov z databazy podla mena.
+	 * Removes player (s) from the database by name.
 	 * 
-	 * @param player hrac.
+	 * @param player.
 	 */
 	public void removePlayer(Player player) {
-		String sql = "delete from players where name = '" + player.getMeno() + "'";
+		String sql = "delete from players where name = '" + player.getName() + "'";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.execute();

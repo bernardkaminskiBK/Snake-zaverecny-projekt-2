@@ -3,17 +3,15 @@ package database;
 import java.util.Comparator;
 
 /**
- * Trieda reprezentuje hraca.
+ * The class represents the player.
  */
 public class Player {
 
-	/** The meno. */
-	private String meno;
-
-	/** The score. */
+	private String name;
 	private int score;
+
 	/**
-	 * Porovnava hracov podla ich nahratych bodov.
+	 * Compares players according to their recorded points.
 	 */
 	public static Comparator<Player> SCORE = new Comparator<Player>() {
 		@Override
@@ -23,38 +21,38 @@ public class Player {
 	};
 
 	/**
-	 * Vytvara hraca s menom a score.
+	 * Create a player with a name and score.
 	 * 
-	 * @param meno  meno hraca.
-	 * @param score score hraca.
+	 * @param name  of the player.
+	 * @param score of the player.
 	 */
 	public Player(String meno, int score) {
-		this.meno = meno;
+		this.name = meno;
 		this.score = score;
 	}
 
 	/**
-	 * Vytvara hraca s menom.
+	 * Create a player with a name.
 	 * 
-	 * @param meno meno hraca.
+	 * @param name of the player.
 	 */
-	public Player(String meno) {
-		this.meno = meno;
+	public Player(String name) {
+		this.name = name;
 	}
 
 	/**
-	 * Vrati meno hraca.
+	 * Return the name of the player.
 	 * 
-	 * @return meno hraca.
+	 * @return name of the player.
 	 */
-	public String getMeno() {
-		return meno;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * Vrati skore hraca.
+	 * Return the score of the player.
 	 * 
-	 * @return skore hraca.
+	 * @return score of the player.
 	 */
 	public int getScore() {
 		return score;

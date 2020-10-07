@@ -18,88 +18,49 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
-// TODO: Auto-generated Javadoc
 /**
- * 
- * Trieda nastavuje funkcionalitu a kontrolu v hlavnej okne(Menu).
- *
+ * The class sets the functionality and control in the main window (Menu).
  */
 public class SnakeFxController implements Initializable {
 
-	/** The text area. */
 	@FXML
 	private TextArea textArea;
-
-	/** The player name. */
 	@FXML
 	private TextField playerName;
-
-	/** The pane controls. */
 	@FXML
 	private Pane basePane, panePlayerName, optionPane, paneControls;
-
-	/** The btn option ok. */
 	@FXML
 	private Button btnOkControls, btnControls, btnOk, btnOption, btnOptionOk;
-
-	/** The snake color red. */
 	@FXML
 	private RadioButton rdBtnBlack, rdBtnWhite, rdBtnRectSnake, rdBtnOvalSnake, snakeColorGreen, snakeColorOrange,
 			snakeColorPurple, snakeColorRed;
 
-	/** The Constant BLACK_BACKGROUND_COLOR. */
 	private static final int BLACK_BACKGROUND_COLOR = 1;
-
-	/** The Constant WHITE_BACKGROUND_COLOR. */
 	private static final int WHITE_BACKGROUND_COLOR = 2;
 
-	/** The Constant SNAKE_COLOR_GREEN. */
 	private static final int SNAKE_COLOR_GREEN = 1;
-
-	/** The Constant SNAKE_COLOR_ORANGE. */
 	private static final int SNAKE_COLOR_ORANGE = 2;
-
-	/** The Constant SNAKE_COLOR_PURPLE. */
 	private static final int SNAKE_COLOR_PURPLE = 3;
-
-	/** The Constant SNAKE_COLOR_RED. */
 	private static final int SNAKE_COLOR_RED = 4;
 
-	/** The Constant OVAL_SNAKE. */
 	private static final int OVAL_SNAKE = 1;
-
-	/** The Constant RECTANGLE_SNAKE. */
 	private static final int RECTANGLE_SNAKE = 2;
 
-	/** The Constant MAX_LETTERS_FOR_PLAYER_NAME. */
 	private static final int MAX_LETTERS_FOR_PLAYER_NAME = 3;
 
-	/** The game. */
 	private Game game;
-
-	/** The db. */
 	private DB db = new DB();
-
-	/** The players. */
 	private ArrayList<Player> players;
-
-	/** The set player name. */
 	private String setPlayerName;
 
-	/** The background color. */
 	static int BACKGROUND_COLOR = 1;
-
-	/** The shape snake. */
 	static int SHAPE_SNAKE = 1;
-
-	/** The color snake. */
 	static int COLOR_SNAKE = 1;
 
 	/**
-	 * Odchytavac udalosti zaznamenava tlacenie tlacitka new game v menu ktora
-	 * spusta hru.
+	 * Pressing the new game button in the menu starts a new game.
 	 * 
-	 * @param event udalost kliknutia tlacitka New game v menu.
+	 * @param event button new game.
 	 */
 	@FXML
 	public void btnNewGame(ActionEvent event) {
@@ -125,8 +86,8 @@ public class SnakeFxController implements Initializable {
 	}
 
 	/**
-	 * Zavolanim tejto metody sa spusti hra. Za podmienku ze hrac musi zadat hracske
-	 * meno. Ma povolene zadania mena iba max 3 pismenka.
+	 * Calling this method starts the game. The game will start if the user enters
+	 * their name. Player name must be at most three characters.
 	 */
 	private void runGame() {
 		if (!setPlayerName.isEmpty() && setPlayerName.length() >= MAX_LETTERS_FOR_PLAYER_NAME) {
@@ -141,10 +102,10 @@ public class SnakeFxController implements Initializable {
 	}
 
 	/**
-	 * Odchytavac udalosti btnControls s tlacenim prepne z hlavneho menu do moznosti
-	 * controls kde nasledne je pouzivatel informovany o ovladani hry.
+	 * Pressing the btnControls, button switches the program to the controls
+	 * section.
 	 * 
-	 * @param event udalost kliknutie na tlacitko Controls v menu.
+	 * @param event controls button.
 	 */
 	@FXML
 	public void btnControls(ActionEvent event) {
@@ -161,11 +122,11 @@ public class SnakeFxController implements Initializable {
 	}
 
 	/**
-	 * Odchytavac udalosti zaznamenava kliknutie na tlacitko btnOption nasledne z
-	 * moznosti hlavneho menu pouzivatela prepne do sekcie nastavenia(options). Kde
-	 * ma moznost vyber z roznych nastaveni. Zmena farby pozadia a hadika.
+	 * Pressing the btnOption button switches the program to the game option
+	 * section. Where user can set the background color, snake color and snake
+	 * shape.
 	 * 
-	 * @param event udalost kliknutie na tlacitko option v menu.
+	 * @param event option button.
 	 */
 	@FXML
 	public void btnOption(ActionEvent event) {
@@ -239,9 +200,10 @@ public class SnakeFxController implements Initializable {
 	}
 
 	/**
-	 * Stlacenim tlacitka quit v menu program ukonci pracu s appkou.
+	 * By pressing the quit button in the menu, the program terminates work with the
+	 * app.
 	 * 
-	 * @param event udalost kliknutie na tlacitko quit/koniec hry.
+	 * @param event quit button.
 	 */
 	@FXML
 	public void btnQuit(ActionEvent event) {
@@ -249,24 +211,22 @@ public class SnakeFxController implements Initializable {
 	}
 
 	/**
-	 * Posluchac udalosti btnReset s kliknutim resetuje vsetky zaznamy v databaze.
+	 * The btnReset button deletes all records in the database.
 	 * 
-	 * @param event kliknutie na tlacitko reset v menu/reset vsetky zaznamy.
+	 * @param event reset button.
 	 */
 	@FXML
 	public void btnReset(ActionEvent event) {
 		for (Player player : players) {
-			db.removePlayer(new Player(player.getMeno()));
+			db.removePlayer(new Player(player.getName()));
 		}
 		setTextArea();
 	}
 
 	/**
-	 * Odchytavac udalosti kliknutim na tlacitko Refresh v menu znovu nacita obsah
-	 * databazy.
+	 * The btnRefresh button loads records from the database into the screen.
 	 * 
-	 * @param event kliknutie na tlacitko refresh nacitanie aktualneho stavu
-	 *              databazy.
+	 * @param event refresh button.
 	 */
 	@FXML
 	public void btnRefresh(ActionEvent event) {
@@ -274,8 +234,8 @@ public class SnakeFxController implements Initializable {
 	}
 
 	/**
-	 * Nastavy a zobrazi podla nahratych bodovs informacie do textoveho pola v menu
-	 * o hracoch(meno, skore).
+	 * Settings and displays information according to the recorded points in the
+	 * text field in the player menu (name, score).
 	 */
 	public void setTextArea() {
 		players = db.getAllPlayers();
@@ -287,13 +247,14 @@ public class SnakeFxController implements Initializable {
 		result += "----------------------\n";
 		for (Player player : players) {
 			lineCounter++;
-			result += String.format("%-5s%5s%10s", lineCounter + ".", player.getMeno(), player.getScore()) + "\n";
+			result += String.format("%-5s%5s%10s", lineCounter + ".", player.getName(), player.getScore()) + "\n";
 		}
 		textArea.setText(result);
 	}
 
 	/**
-	 * Vola sa na inicializaciu root po uplnom spracovani jeho korenoveho prvku.
+	 * Called to initialize a controller after its root element has been completely
+	 * processed.
 	 *
 	 * @param location  the location
 	 * @param resources the resources
